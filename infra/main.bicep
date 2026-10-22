@@ -7,12 +7,12 @@ param appName string = 'swa-portfolio-prod'
   'westus2'
   'eastasia'
 ])
-param location string = 'westeurope'
+param location string = 'eastus2'
 
 var tags = {
   project: 'portfolio'
   env: 'prod'
-  owner: 'benjamintall'
+  owner: 'your-name'
 }
 
 resource swa 'Microsoft.Web/staticSites@2023-12-01' = {
@@ -26,4 +26,11 @@ resource swa 'Microsoft.Web/staticSites@2023-12-01' = {
   properties: {}
 }
 
+resource dnsZone 'Microsoft.Network/dnsZones@2018-05-01' = {
+  name: 'btall.dev'
+  location: 'global'
+  tags: tags
+}
+
 output defaultHostname string = swa.properties.defaultHostname
+output nameServers array = dnsZone.properties.nameServers
