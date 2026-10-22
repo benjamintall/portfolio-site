@@ -1,12 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My Portfolio!</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benjamin Tall – IT technician, moving into cloud</title>
+<meta name="description" content="Benjamin Tall, IT technician in Umeå working towards a cloud engineer role. AZ-900 certified, preparing for AZ-104.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%98%81%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef2f4; --surface:#e3e9ec; --ink:#16232d; --muted:#56656f;
+  --line:#c5d0d6; --accent:#0b6b63; --accent-ink:#ffffff;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#101a20; --surface:#17252d; --ink:#e4ecef; --muted:#92a3ad;
+    --line:#2a3b45; --accent:#4fd1c0; --accent-ink:#06211e;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:400 1.0625rem/1.65 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent); text-underline-offset:.2em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:3px; border-radius:2px}
+.wrap{max-width:72rem; margin:0 auto; padding:0 clamp(1.5rem,5vw,4rem)}
+
+/* top bar */
+header.bar{padding:1.25rem 0; border-bottom:1px solid var(--line)}
+header.bar .wrap{display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap}
+header.bar strong{font-weight:600}
+nav{display:flex; gap:1.25rem; flex-wrap:wrap}
+nav a{color:var(--muted); text-decoration:none}
+nav a:hover{color:var(--ink); text-decoration:underline}
+
+/* hero */
+.hero{padding:clamp(3.5rem,9vw,7rem) 0 clamp(3rem,6vw,5rem)}
+h1{
+  font:600 clamp(2.75rem,8vw,7rem)/1.02 "IBM Plex Serif",Georgia,serif;
+  letter-spacing:-.02em; margin:0 0 1.25rem;
+}
+.lede{font-size:clamp(1.25rem,2vw,1.6rem); line-height:1.5; max-width:42rem; margin:0 0 1.75rem}
+.status{
+  display:inline-block; background:var(--surface); border-left:4px solid var(--accent);
+  padding:.7rem 1rem; margin:0; max-width:42rem;
+}
+
+/* sections */
+section{padding:2.5rem 0; border-top:1px solid var(--line)}
+@media (min-width:60rem){
+  section{
+    display:grid; grid-template-columns:14rem minmax(0,46rem); column-gap:4rem;
+    padding:3.5rem 0;
+  }
+  section > h2{grid-column:1; grid-row:1; align-self:start; position:sticky; top:1.5rem; margin:0}
+  section > :not(h2){grid-column:2}
+}
+@media (min-width:90rem){ html{font-size:112.5%} }
+@media (min-width:120rem){ html{font-size:131.25%} }
+h2{font:600 1.5rem/1.2 "IBM Plex Serif",Georgia,serif; margin:0 0 1.5rem; letter-spacing:-.01em}
+h3{font-size:1.0625rem; font-weight:600; margin:0}
+p{margin:0 0 1rem}
+.when{color:var(--muted); font-size:.95rem}
+
+/* experience timeline: content really is a sequence */
+.job{
+  position:relative; padding:0 0 1.75rem 1.5rem; border-left:2px solid var(--line);
+}
+.job:last-child{padding-bottom:0}
+.job::before{
+  content:""; position:absolute; left:-7px; top:.45rem; width:12px; height:12px;
+  border-radius:50%; background:var(--bg); border:2px solid var(--accent);
+}
+.job.now::before{background:var(--accent)}
+details summary{cursor:pointer; list-style:none; padding:.1rem 0}
+details summary::-webkit-details-marker{display:none}
+details summary h3::after{
+  content:"Show details"; margin-left:.75rem; font-size:.85rem; font-weight:400; color:var(--accent);
+  text-decoration:underline; text-underline-offset:.2em;
+}
+details[open] summary h3::after{content:"Hide details"}
+details ul{margin:.75rem 0 0; padding-left:1.1rem}
+details li{margin-bottom:.5rem}
+details[open] ul{animation:open .2s ease-out}
+@keyframes open{from{opacity:0; transform:translateY(-4px)}to{opacity:1; transform:none}}
+
+/* certifications and project */
+.item{margin-bottom:1.5rem}
+.item:last-child{margin-bottom:0}
+.tag{
+  display:inline-block; font-size:.875rem; font-weight:500; padding:.1rem .6rem;
+  border:1px solid var(--accent); color:var(--accent); border-radius:999px; margin-left:.5rem;
+}
+.tag.done{background:var(--accent); color:var(--accent-ink)}
+.stack{display:flex; flex-wrap:wrap; gap:.5rem; padding:0; margin:1rem 0 0; list-style:none}
+.stack li{background:var(--surface); padding:.2rem .7rem; border-radius:4px; font-size:.95rem}
+
+/* skills */
+.skills{columns:2 14rem; column-gap:2rem; padding:0; margin:0; list-style:none}
+.skills li{padding:.25rem 0; break-inside:avoid}
+
+/* contact */
+.contact{display:flex; flex-wrap:wrap; gap:.75rem}
+.btn{
+  display:inline-block; padding:.65rem 1.1rem; border-radius:6px; font-weight:500;
+  text-decoration:none; border:2px solid var(--accent); color:var(--accent);
+}
+.btn.primary{background:var(--accent); color:var(--accent-ink)}
+.btn:hover{text-decoration:underline}
+
+footer{padding:2rem 0 3rem; color:var(--muted); font-size:.95rem; border-top:1px solid var(--line)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  details[open] ul{animation:none}
+}
+</style>
 </head>
 <body>
-  <h1>Coming soon</h1>
-  <p>Deployed on Azure Static Web Apps.</p>
+
+<header class="bar">
+  <div class="wrap">
+    <strong>Benjamin Tall</strong>
+    <nav aria-label="Main">
+      <a href="#certifications">Certifications</a>
+      <a href="#project">Project</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <h1>Benjamin Tall</h1>
+    <p class="lede">IT technician in Umeå, Sweden, moving into cloud engineering. I have over a year of hands-on work with user support, ticket handling and device rollouts for public and private clients.</p>
+    <p class="status">Azure Fundamentals certified. Studying for AZ-104, and building on Azure to learn it properly.</p>
+  </div>
+
+  <section id="certifications">
+    <h2>Certifications</h2>
+    <div class="item">
+      <h3>Microsoft Certified: Azure Fundamentals (AZ-900)<span class="tag done">Certified</span></h3>
+      <p class="when">Issued by Microsoft, September 2026</p>
+    </div>
+    <div class="item">
+      <h3>Microsoft Certified: Azure Administrator Associate (AZ-104)<span class="tag">In progress</span></h3>
+      <p class="when">Studying now</p>
+    </div>
+  </section>
+
+  <section id="project">
+    <h2>This site is a project</h2>
+    <p>I built and deployed this page on Azure as a hands-on way to learn the platform. The infrastructure is written as code, and every change goes live through a pipeline.</p>
+    <ul>
+      <li>Hosted on Azure Static Web Apps, Free plan.</li>
+      <li>Infrastructure defined in a Bicep template and deployed with the Azure CLI.</li>
+      <li>GitHub Actions deploys on every push to <code>main</code>, with a temporary preview environment for each pull request.</li>
+      <li>Resources sit in a tagged resource group, with a budget alert on the subscription.</li>
+    </ul>
+    <p>Planned next: a custom domain with Azure DNS, monitoring and an alert, and a contact form backed by Azure Functions and Key Vault.</p>
+    <ul class="stack" aria-label="Technologies used">
+      <li>Azure Static Web Apps</li>
+      <li>Bicep</li>
+      <li>GitHub Actions</li>
+      <li>Azure CLI</li>
+    </ul>
+    <p style="margin-top:1.25rem"><a href="https://github.com/benjamintall/portfolio-site">Read the code on GitHub</a></p>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+
+    <div class="job now">
+      <details>
+        <summary>
+          <h3>IT technician, A-hub</h3>
+          <span class="when">Consultant at Region Västerbotten, Umeå. Oct 2026 to now</span>
+        </summary>
+        <ul>
+          <li>Replace computers on a lifecycle schedule, and install and manage them through Upkeepr.</li>
+        </ul>
+      </details>
+    </div>
+
+    <div class="job">
+      <details>
+        <summary>
+          <h3>IT technician, Clockwork</h3>
+          <span class="when">Consultant at Umeå kommun, Umeå. Sep 2025 to Sep 2026</span>
+        </summary>
+        <ul>
+          <li>Started in a rollout project, then moved into a broader role covering IT support, ticket handling, system administration and troubleshooting.</li>
+          <li>Handled support tickets from the municipality’s employees in the Easit ticketing system.</li>
+          <li>Worked with Microsoft Intune, and with installing and configuring devices through Windows Autopilot.</li>
+          <li>Supported and troubleshot Microsoft 365, operating systems and software, plus VPN and basic network issues.</li>
+        </ul>
+      </details>
+    </div>
+
+    <div class="job">
+      <details>
+        <summary>
+          <h3>IT technician, Gigstep</h3>
+          <span class="when">Consultant at Atea, Malmö. May 2025 to Sep 2025</span>
+        </summary>
+        <ul>
+          <li>Took part in a rollout project at Trygg-Hansa, installing and commissioning IT equipment.</li>
+          <li>Set up and connected computers, monitors and docking stations, ran cables and prepared complete IT workplaces.</li>
+          <li>Supported and troubleshot operating systems, applications and other software during the rollout.</li>
+        </ul>
+      </details>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul class="skills">
+      <li>Microsoft Intune</li>
+      <li>Windows Autopilot</li>
+      <li>Microsoft 365</li>
+      <li>Microsoft Azure (Fundamentals, AZ-104 in progress)</li>
+      <li>Bicep and GitHub Actions (learning, used on this site)</li>
+      <li>Windows and Linux</li>
+      <li>IT and end-user support</li>
+      <li>Ticket handling (Easit)</li>
+      <li>VPN and basic networking</li>
+      <li>Rollout and deployment of IT equipment</li>
+    </ul>
+  </section>
+
+  <section id="education">
+    <h2>Education and languages</h2>
+    <div class="item">
+      <h3>Technical foundation year, Lund University</h3>
+      <p class="when">Sep 2023 to Jun 2024. Mathematics, physics and chemistry.</p>
+    </div>
+    <div class="item">
+      <h3>Network technician, Movant, Lund</h3>
+      <p class="when">Aug 2021 to Nov 2022. Adult education equivalent to the electricity and energy programme, focused on computer and communication technology.</p>
+    </div>
+    <p style="margin-top:1.5rem">Swedish and English fluent. Spanish very good.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Open to cloud administrator, cloud engineer and IT consultant roles.</p>
+    <div class="contact">
+      <a class="btn primary" href="mailto:benjamintall@protonmail.com">Email me</a>
+      <a class="btn" href="https://www.linkedin.com/in/benjamintall/">LinkedIn</a>
+      <a class="btn" href="https://github.com/benjamintall">GitHub</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Benjamin Tall</div>
+</footer>
+
 </body>
 </html>
